@@ -3,12 +3,23 @@ export enum color{
     black
 }
 
-export type Cords = {
+export type Coords = {
     x:number;
     y:number;
 }
 
-export enum FENChar ={
-    WhitePawn= "P",
-    WHiteKnight= "N"
+export enum FENChar {
+    WhitePawn = "P",
+    WhiteKnight = "N",
+    WhiteBishop = "B",
+    WhiteRook = "R",
+    WhiteQueen ="Q",
+    WhiteKing = "K",  
+
+    BlackPawn= "p",
+    BlackKnight = "n",
+    BlackBishop = "b",
+    BlackRook = "r",
+    BlackQueen = "q",
+    BlackKing = "k"
 }
