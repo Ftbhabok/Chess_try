@@ -1,13 +1,14 @@
-import { Color } from './models';
-import { Rook } from './pieces/rook';
-import { Knight } from './pieces/knight';
+import { Color, FENChar } from './models';
 import { Bishop } from './pieces/bishop';
-import { Queen } from './pieces/queen';
 import { King } from './pieces/king';
+import { Knight } from './pieces/knight';
 import { Pawn } from './pieces/pawn';
+import { Piece } from './pieces/piece';
+import { Queen } from './pieces/queen';
+import { Rook } from './pieces/rook';
 
-export class chessBoard {
-  private chessBoard: (piece | null)[][];
+export class ChessBoard {
+  private chessBoard: (Piece | null)[][];
   private _playerColor = Color.White;
 
   constructor() {
@@ -65,11 +66,9 @@ export class chessBoard {
 
   public get chessBoardView(): (FENChar | null)[][] {
     return this.chessBoard.map((row) => {
-      return row.map((piece) => {
-        return row.map((piece) =>
-          piece instanceof piece ? piece.FENChar : null,
-        );
-      });
+      return row.map((piece) =>
+        piece instanceof Piece ? piece.FENChar : null,
+      );
     });
   }
 }

@@ -16,6 +16,6 @@ export class Queen extends Piece {
   constructor(private pieceColor: Color) {
     super(pieceColor);
     this._FENChar =
-      pieceColor === Color.white ? FENChar.WhiteQueen : FENChar.BlackQueen;
+      pieceColor === Color.White ? FENChar.WhiteQueen : FENChar.BlackQueen;
   }
 }

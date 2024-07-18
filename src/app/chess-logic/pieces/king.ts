@@ -19,7 +19,7 @@ export class King extends Piece {
     super(pieceColor);
     
     this._FENChar =
-      pieceColor === Color.white ? FENChar.WhiteKing : FENChar.BlackKing;
+      pieceColor === Color.White ? FENChar.WhiteKing : FENChar.BlackKing;
   }
 
   public get hasMoved(): boolean {
