@@ -7,11 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './chess-board.component.html',
   styleUrl: './chess-board.component.css'
 })
+  
 export class ChessBoardComponent {
 private chessBoard = new ChessBoard();
   public chessBoardvie: (FENChar | null)[][] = this.chessBoard.chessBoardView;
   
   public get playerColor(): Color {
-    return this.chessBoard.playerColor;
-  }
+    return this.chessBoard.playerColor; };
+
 }
