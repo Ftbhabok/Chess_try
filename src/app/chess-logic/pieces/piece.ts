@@ -1,11 +1,11 @@
 
-import {color, Coords, FENChar } from "../models";
+import {Color, Coords, FENChar } from "../models";
 
 export  abstract class Piece{
     protected abstract _FENChar: FENChar;
     protected abstract _directions: Coords[];
 
-    constructor(private _color: color){}
+    constructor(private _color: Color){}
 
     public get FENChar ():FENChar{
         return this._FENChar;
@@ -14,7 +14,7 @@ export  abstract class Piece{
         return this.directions;
     }
 
-    public get color(): color {
+    public get color(): Color {
         return this._color;
     }
 }
