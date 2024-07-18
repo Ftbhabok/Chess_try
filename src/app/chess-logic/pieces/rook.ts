@@ -13,7 +13,7 @@ export class Rook extends Piece {
   constructor(private pieceColor: Color) {
     super(pieceColor);
     this._FENChar =
-      pieceColor === Color.hite ? FENChar.WhiteRook : FENChar.BlackRook;
+      pieceColor === Color.White ? FENChar.WhiteRook : FENChar.BlackRook;
   }
   public get hasMoved(): boolean {
     return this._hasMoved;

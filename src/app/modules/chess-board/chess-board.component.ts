@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { Color, FENChar } from 'src/app/chess-logic/models';
-import { ChessBoard } from 'src/app/chess-logic/models';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-// src/app/chess-logic/models.ts
+import { ChessBoard } from 'src/app/chess-logic/chess-board';
+
+import { Color, Coords, FENChar} from 'src/app/chess-logic/models';
+
 
 
 
@@ -25,4 +26,6 @@ private chessBoard = new ChessBoard();
 
 }
 
-// problem is in this file 
+// problem is in this file  
+// problem resolved
+
