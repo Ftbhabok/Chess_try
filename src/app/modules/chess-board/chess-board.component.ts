@@ -1,16 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ChessBoard } from 'src/app/chess-logic/chess-board';
 
-import { Color, Coords, FENChar} from 'src/app/chess-logic/models';
+import { Color, FENChar} from 'src/app/chess-logic/models';
 
 
 
 
 @Component({
   selector: 'app-chess-board',
-  // standalone: true,
-  // imports: [],
   templateUrl: './chess-board.component.html',
   styleUrls: ['./chess-board.component.css']
 })
@@ -24,8 +22,9 @@ private chessBoard = new ChessBoard();
   public get playerColor(): Color {
     return this.chessBoard.playerColor; };
 
+  public isSquareDark(x:number,y:number): boolean{
+    return ChessBoard.isSquareDark(x,y);
+  }
 }
 
-// problem is in this file  
-// problem resolved
 
