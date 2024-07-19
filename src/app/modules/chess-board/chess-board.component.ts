@@ -15,6 +15,8 @@ import { Color, FENChar} from 'src/app/chess-logic/models';
   
   
 export class ChessBoardComponent {
+
+  public pieceImagePaths = this.pieceImagePaths;
 private chessBoard = new ChessBoard();
   
   public chessBoardView: (FENChar | null)[][] = this.chessBoard.chessBoardView;
