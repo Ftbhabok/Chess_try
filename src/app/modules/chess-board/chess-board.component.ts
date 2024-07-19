@@ -16,15 +16,16 @@ import { Color, FENChar} from 'src/app/chess-logic/models';
   
 export class ChessBoardComponent {
 
-  public pieceImagePaths = this.pieceImagePaths;
-private chessBoard = new ChessBoard();
+  public pieceImagePaths = pieceImagePaths;
   
-  public chessBoardView: (FENChar | null)[][] = this.chessBoard.chessBoardView;
+private chessBoard = new ChessBoard();
+public chessBoardView: (FENChar | null)[][] = 
+ this.chessBoard.chessBoardView;
   
   public get playerColor(): Color {
     return this.chessBoard.playerColor; };
 
-  public isSquareDark(x:number,y:number): boolean{
+  public isSquareDark(x:number,y: number): boolean {
     return ChessBoard.isSquareDark(x,y);
   }
 }
