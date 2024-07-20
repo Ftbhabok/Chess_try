@@ -97,16 +97,16 @@ export class ChessBoard {
               if(piece instanceof Pawn && dy == 0) continue;
 
              
-              const attackedPiece: piece|null = this.chessBoard[newX][newY];
-              
-               if( attackedPiece instanceof King && attackedPiece.color == playerColor) return true;
+              const attackedPiece: Piece|null = this.chessBoard[newX][newY];
+              if( attackedPiece instanceof King && attackedPiece.color == playerColor) return true;
             }
             else {
               while (this.areCoordsValid(newX, newY)) {
-                const attackedPiece: piece|null = this.chessBoard[newX][newY];
+                const attackedPiece: Piece|null = this.chessBoard[newX][newY];
                 if(attackedPiece instanceof King && attackedPiece.color == playerColor) return true;
             
               if(attackedPiece !== null) break;
+                
               newX +=dx;
               newY +=dy;
               
@@ -117,9 +117,9 @@ export class ChessBoard {
       }
     }
        return false;
-  
-}
-private  isPositionSafeAfterMove(piece: piece, prevX: number, prevY: number, newX: number, newY: number): boolean{
+  }
+
+private  isPositionSafeAfterMove(piece: Piece, prevX: number, prevY: number, newX: number, newY: number): boolean{
   const newPiece: Piece|null = this.chessBoard[newX][newY];
   // can't move to a square with a piece of the same color
   if(newPiece && newPiece.color == piece.color) return false;
