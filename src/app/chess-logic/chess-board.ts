@@ -77,29 +77,52 @@ export class ChessBoard {
     return x % 2 ==0 && y % 2 ==0 || x % 2 == 1 && y % 2 == 1;
   }
 
-  private areCordsValid (x: number, y:number): boolean {
+  private areCoordsValid (x: number, y:number): boolean {
     return x >= 0 && y>= 0 && x< this.chessBoardSize && y< this.chessBoardSize;
   }
-    public isInCheck(palyerColor: Color) : boolean{
+    public isInCheck(playerColor: Color) : boolean{
       for(let x=0; x< this.chessBoardSize; x++){
         for (let y= 0; y< this.chessBoardSize; y++){
-          const peiece: piece||null = this.chessBoard[x][y];
+          const piece: Piece|null = this.chessBoard[x][y];
           if(!piece || piece.color == playerColor) continue;
 
-          for( const{x: dx, y: dy} of Piece.directions){
+          for( const{x: dx, y: dy} of piece.directions){
             let newX: number = x+ dx;
             let newY: number = y+ dy;
 
-            if (!this.areCordsValid(newX, newY)) continue;
+            if (!this.areCoordsValid(newX, newY)) continue;
 
             if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King){
               // pawns attacking diagonally only 
+              if(piece instanceof Pawn && dy == 0) continue;
+
+             
               const attackedPiece: piece|null = this.chessBoard[newX][newY];
-               if( attackedPiece instanceof King && attackedPiece.color == palyerColor) return true;
+              
+               if( attackedPiece instanceof King && attackedPiece.color == playerColor) return true;
+            }
+            else {
+              while (this.areCoordsValid(newX, newY)) {
+                const attackedPiece: piece|null = this.chessBoard[newX][newY];
+                if(attackedPiece instanceof King && attackedPiece.color == playerColor) return true;
+            
+              if(attackedPiece !== null) break;
+              newX +=dx;
+              newY +=dy;
+              
             }
           }
 
         }
       }
     }
+       return false;
+  
+}
+private  isPositionSafeAfterMove(piece: piece, prevX: number, prevY: number, newX: number, newY: number): boolean{
+  const newPiece: Piece|null = this.chessBoard[newX][newY];
+  // can't move to a square with a piece of the same color
+  if(newPiece && newPiece.color == piece.color) return false;
+
+  //simulate position
 }
