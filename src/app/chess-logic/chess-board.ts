@@ -145,7 +145,7 @@ private findSafeSquares(): SafeSquares{
 
         const pieceSafeSquares: Coords[] = [];
 
-      for (const {x: dx, y:dy} of piece.directions){
+        for (const {x: dx, y:dy} of piece.directions){
         let newX: number = x+ dx;
         let newY: number = y+ dy;
 
@@ -157,9 +157,13 @@ private findSafeSquares(): SafeSquares{
         if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King){
             if(this.isPositionSafeAfterMove(piece, x, y, newX, newY))
               pieceSafeSquares.push({x: newX, y: newY});
+          if(newPiece !=null) break;
+          
+          newX +=dx;
+          newY +=dy;
         }
-
       }
+      if(pieceSafeSquares.length) safeSquares.set(x + "," + y,pieceSafeSquares);
     }
   }
   return safeSquares;
