@@ -10,6 +10,7 @@ import { Rook } from './pieces/rook';
 export class ChessBoard {
   private chessBoard: (Piece | null)[][];
   private _playerColor = Color.White;
+  private readonly chessBoardSize: number = 8;
 
   constructor() {
     this.chessBoard = [
@@ -75,5 +76,30 @@ export class ChessBoard {
   public static isSquareDark(x:number,y:number): boolean{
     return x % 2 ==0 && y % 2 ==0 || x % 2 == 1 && y % 2 == 1;
   }
-    
+
+  private areCordsValid (x: number, y:number): boolean {
+    return x >= 0 && y>= 0 && x< this.chessBoardSize && y< this.chessBoardSize;
+  }
+    public isInCheck(palyerColor: Color) : boolean{
+      for(let x=0; x< this.chessBoardSize; x++){
+        for (let y= 0; y< this.chessBoardSize; y++){
+          const peiece: piece||null = this.chessBoard[x][y];
+          if(!piece || piece.color == playerColor) continue;
+
+          for( const{x: dx, y: dy} of Piece.directions){
+            let newX: number = x+ dx;
+            let newY: number = y+ dy;
+
+            if (!this.areCordsValid(newX, newY)) continue;
+
+            if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King){
+              // pawns attacking diagonally only 
+              const attackedPiece: piece|null = this.chessBoard[newX][newY];
+               if( attackedPiece instanceof King && attackedPiece.color == palyerColor) return true;
+            }
+          }
+
+        }
+      }
+    }
 }
