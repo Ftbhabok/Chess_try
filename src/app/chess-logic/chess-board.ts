@@ -1,4 +1,4 @@
-import { Color, FENChar } from './models';
+import { Color, FENChar, SafeSquares } from './models';
 import { Bishop } from './pieces/bishop';
 import { King } from './pieces/king';
 import { Knight } from './pieces/knight';
@@ -136,7 +136,32 @@ export class ChessBoard {
   
   return isPositionSafe;
  }
-private findSafeSquares(): safeSquares{
-  
+private findSafeSquares(): SafeSquares{
+    const safeSquares: SafeSquares = new Map<string, Coords[]>();
+  for(let x=0; x< this.chessBoardSize; x++){
+    for (let y= 0; y< this.chessBoardSize; y++){
+      const piece: Piece|null = this.chessBoard[x][y];
+        if(!piece || piece.color !=this.playerColor) continue;
+
+        const pieceSafeSquares: Coords[] = [];
+
+      for (const {x: dx, y:dy} of piece.directions){
+        let newX: number = x+ dx;
+        let newY: number = y+ dy;
+
+        if(!this.areCoordsValid(newX, newY)) continue;
+
+        let newPiece: Piece|null = this.chessBoard[newX][newY];
+        if(newPiece && newPiece.color ==piece.color) continue;
+
+        if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King){
+            if(this.isPositionSafeAfterMove(piece, x, y, newX, newY))
+              pieceSafeSquares.push({x: newX, y: newY});
+        }
+
+      }
+    }
+  }
+  return safeSquares;
  }
 }
