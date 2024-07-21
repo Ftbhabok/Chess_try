@@ -1,4 +1,4 @@
-import { Color, FENChar, SafeSquares } from './models';
+import { Color, Coords, FENChar, SafeSquares } from './models';
 import { Bishop } from './pieces/bishop';
 import { King } from './pieces/king';
 import { Knight } from './pieces/knight';
