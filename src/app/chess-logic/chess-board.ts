@@ -11,6 +11,7 @@ export class ChessBoard {
   private chessBoard: (Piece | null)[][];
   private _playerColor = Color.White;
   private readonly chessBoardSize: number = 8;
+  private _safeSquares: SafeSquares;
 
   constructor() {
     this.chessBoard = [
@@ -59,6 +60,7 @@ export class ChessBoard {
         new Rook(Color.Black),
       ],
     ];
+    this._safeSquares =this.findSafeSquares();
   }
 
   public get playerColor(): Color {
@@ -71,6 +73,9 @@ export class ChessBoard {
         piece instanceof Piece ? piece.FENChar : null,
       );
     });
+  }
+  public get safeSquares(): SafeSquares {
+    return this._safeSquares;
   }
 
   public static isSquareDark(x:number,y:number): boolean{
@@ -150,9 +155,22 @@ private findSafeSquares(): SafeSquares{
         let newY: number = y+ dy;
 
         if(!this.areCoordsValid(newX, newY)) continue;
-
+  
         let newPiece: Piece|null = this.chessBoard[newX][newY];
         if(newPiece && newPiece.color ==piece.color) continue;
+
+          // need to restrict pawn moves in certain directions
+          if(piece instanceof Pawn) {
+            // can't move two squares straight if there is piece infront of him 
+            if(dx == 2 || dx == -2){
+              if(newPiece) continue;
+              if(this.chessBoard[newX +(dx==2 ? 1 : -1)][newY]) continue;
+              // can't move pawn one square straight if there is piece infront of him
+            }if(( dx ==1 || dx == -1) && dy == 0 && newPiece) continue;
+            // can't move pawn diagonally if there is no piece or has a piece of the same color
+            if(( dy ==1 || dy == -1) && (!newPiece ||piece.color == newPiece.color)) continue;
+            
+          }
 
         if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King){
             if(this.isPositionSafeAfterMove(piece, x, y, newX, newY))
@@ -163,7 +181,8 @@ private findSafeSquares(): SafeSquares{
           newY +=dy;
         }
       }
-      if(pieceSafeSquares.length) safeSquares.set(x + "," + y,pieceSafeSquares);
+      if(pieceSafeSquares.length)
+        safeSquares.set(x + "," + y,pieceSafeSquares);
     }
   }
   return safeSquares;
