@@ -8,4 +8,5 @@ type SquareWithPiece = {
    type SquareWithoutPieces = {
      piece: null;
    }
-export type Square = SquareWithPiece | SquareWithoutPieces;
+export type SelectedSquare = SquareWithPiece | SquareWithoutPieces;
+

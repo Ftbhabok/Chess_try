@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ChessBoard } from 'src/app/chess-logic/chess-board';
 
-import { Color, FENChar} from 'src/app/chess-logic/models';
+import { Color, FENChar, pieceImagePaths} from 'src/app/chess-logic/models';
 
 
 
