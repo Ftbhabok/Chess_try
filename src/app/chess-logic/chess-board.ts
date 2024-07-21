@@ -188,3 +188,6 @@ private findSafeSquares(): SafeSquares{
   return safeSquares;
  }
 }
+
+
+// problem somehow can't find coords problem
