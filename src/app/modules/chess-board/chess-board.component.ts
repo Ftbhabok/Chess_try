@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { ChessBoard } from 'src/app/chess-logic/chess-board';
 
-import { Color, FENChar, pieceImagePaths} from 'src/app/chess-logic/models';
+import { Color, Coords, FENChar, pieceImagePaths, SafeSquares} from 'src/app/chess-logic/models';
+import { SelectedSquare } from './models';
 
 
 
@@ -55,4 +56,4 @@ public isSquareSelected(x: number, y: number): boolean {
 
 
 
-// multiple problems here
+// multiple problems here solved!!! yay
