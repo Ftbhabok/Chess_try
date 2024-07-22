@@ -65,7 +65,7 @@ private palcingPiece(newX: number, newY: number) :void {
 
   public move (x: number, y: number): void {
     this.selectingPiece(x,y);
-    this.placingPiece(x, y);
+    this.palcingPiece(x, y);
   }
 
   
