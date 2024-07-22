@@ -6,6 +6,7 @@
      [ngClass]="{'dark': isSquareDark(x, y),
      'light':!isSquareDark(x,y),
      'selected-square': isSquareSelected(x, y)
+<<<<<<< HEAD
 
       }
 
@@ -17,6 +18,18 @@
       <img *ngIf="piece" [src]="pieceImagePaths[piece]" [alt]="piece" class="piece">
     
     </div>
+=======
+  }
+
+     " (click)="selectingPiece(x, y)">
+
+     <div [ngClass]="{'safe-square': isSquareSafeForSelectedPiece(x, y)}"></div>
+
+     <img *ngIf="piece" [src]="pieceImagePaths[piece]" [alt]="piece" class="piece"
+         [ngClass]="{'rotated': flipMode}">
+ </div>
+
+>>>>>>> 6e712bf32a71f7da426d41d0f288ebdeecceb1cc
   </div>
 </div>
 
