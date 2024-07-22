@@ -47,9 +47,30 @@ public isSquareSelected(x: number, y: number): boolean {
   public selectingPiece(x: number, y: number): void{
     const piece: FENChar | null = this.chessBoardView[x][y];
     if(!piece) return;
+    if(this.isWrongPieceSelected(piece)) return;
 
     this.selectedSquare = {piece, x, y};
     this.pieceSafeSquares =this.safeSquares.get(x + "," + y) || [];
+  }
+
+private palcingPiece(newX: number, newY: number) :void {
+  if(!this.selectedSquare.piece) return;
+  if(!this.isSquareSafeForSelectedPiece (newX, newY)) return;
+
+  const {x: prevX, y: prevY} = this.selectedSquare;
+  this.chessBoard.move(prevX, prevY, newX, newY);
+  this.chessBoardView = this.chessBoard.chessBoardView;
+}
+
+  public move (x: number, y: number): void {
+    this.selectingPiece(x,y);
+    this.placingPiece(x, y);
+  }
+
+  
+  public isWrongPieceSelected(piece: FENChar): boolean{
+    const isWhitePieceSelected: boolean = piece == piece.toUpperCase();
+    return isWhitePieceSelected && this.playerColor == Color.Black || !isWhitePieceSelected && this.playerColor == Color.White;
   }
 }
 
