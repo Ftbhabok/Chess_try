@@ -23,3 +23,7 @@ This is a multiplayer chess game built using TypeScript. It leverages the Stockf
 * **[Issue 2]:** Briefly describe the issue and its impact.
 
 This project is under active development, and we are committed to addressing these issues and enhancing the game's features. 
+
+
+#####problems
+1. in html file" app-chess-board " doesn't work as intend
