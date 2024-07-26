@@ -31,6 +31,8 @@ export class ChessBoardComponent {
 
   private selectedSquare: SelectedSquare = { piece: null };
   private pieceSafeSquares: Coords[] = [];
+  private lastMove: LastMove|undefined = this.chessBoard.lastMove;
+  private checkState: CheckState = this.chessBoard.checkState;
 
   public isSquareDark(x: number, y: number): boolean {
     return ChessBoard.isSquareDark(x, y);
@@ -40,12 +42,23 @@ export class ChessBoardComponent {
     if (!this.selectedSquare.piece) return false;
     return this.selectedSquare.x == x && this.selectedSquare.y == y;
   }
+  public isSquareLastMove(x: number, y: number): boolean {
+    if(!this.lastMove) return false;
+    const {prevX, prevY, currX, currY} = this.lastMove;;
+    return x == prevX && y == prevY|| x == currX && y == currY;
+  }
+
+  public isSquareChecked(x: number, y: number): boolean {
+    return this.checkState.isInCheck && this.checkState.x == x && this.checkState.y == y;
+  }
+  
 
   public isSquareSafeForSelectedPiece(x: number, y: number): boolean {
     return this.pieceSafeSquares.some(
       (coords) => coords.x == x && coords.y == y,
     );
-  }
+  } 
+  // move this upward maybe
 
   private unmarkingPreviouslySelectedAndSafeSquares(): void{
     this.selectedSquare = { piece: null };
@@ -73,6 +86,8 @@ export class ChessBoardComponent {
     const { x: prevX, y: prevY } = this.selectedSquare;
     this.chessBoard.move(prevX, prevY, newX, newY);
     this.chessBoardView = this.chessBoard.chessBoardView;
+    this.checkState = this.chessBoard.checkState;
+    this.lastMove = this.chessBoard.lastMove;
     this.unmarkingPreviouslySelectedAndSafeSquares
   }
 
