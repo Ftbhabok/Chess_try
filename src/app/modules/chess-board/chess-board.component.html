@@ -3,6 +3,7 @@
   <div *ngFor= "let row of chessBoardView; let x = index" class="row">
     
     <div *ngFor="let piece of row; let y = index" class="square"
+    
      [ngClass]="{'dark': isSquareDark(x, y),
      'light':!isSquareDark(x,y),
      'selected-square': isSquareSelected(x, y), 'king-in-check': isSquareChecked(x,y)     

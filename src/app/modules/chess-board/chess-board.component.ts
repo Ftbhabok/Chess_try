@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { ChessBoard } from 'src/app/chess-logic/chess-board';
 
 import {
+  CheckState,
   Color,
   Coords,
   FENChar,
+  LastMove,
   pieceImagePaths,
   SafeSquares,
 } from 'src/app/chess-logic/models';
@@ -16,6 +18,7 @@ import { SelectedSquare } from './models';
   templateUrl: './chess-board.component.html',
   styleUrls: ['./chess-board.component.css'],
 })
+
 export class ChessBoardComponent {
   public pieceImagePaths = pieceImagePaths;
 
@@ -24,14 +27,14 @@ export class ChessBoardComponent {
 
   public get playerColor(): Color {
     return this.chessBoard.playerColor;
-  }
+  };
   public get safeSquares(): SafeSquares {
     return this.chessBoard.safeSquares;
-  }
+  };
 
   private selectedSquare: SelectedSquare = { piece: null };
   private pieceSafeSquares: Coords[] = [];
-  private lastMove: LastMove|undefined = this.chessBoard.lastMove;
+  private lastMove: LastMove | undefined = this.chessBoard.lastMove;
   private checkState: CheckState = this.chessBoard.checkState;
 
   public isSquareDark(x: number, y: number): boolean {
@@ -42,8 +45,16 @@ export class ChessBoardComponent {
     if (!this.selectedSquare.piece) return false;
     return this.selectedSquare.x == x && this.selectedSquare.y == y;
   }
+
+  
+  public isSquareSafeForSelectedPiece(x: number, y: number): boolean {
+    return this.pieceSafeSquares.some(
+      (coords) => coords.x == x && coords.y == y,
+    );
+  }
+
   public isSquareLastMove(x: number, y: number): boolean {
-    if(!this.lastMove) return false;
+    if (!this.lastMove) return false;
     const {prevX, prevY, currX, currY} = this.lastMove;;
     return x == prevX && y == prevY|| x == currX && y == currY;
   }
@@ -51,21 +62,13 @@ export class ChessBoardComponent {
   public isSquareChecked(x: number, y: number): boolean {
     return this.checkState.isInCheck && this.checkState.x == x && this.checkState.y == y;
   }
-  
-
-  public isSquareSafeForSelectedPiece(x: number, y: number): boolean {
-    return this.pieceSafeSquares.some(
-      (coords) => coords.x == x && coords.y == y,
-    );
-  } 
-  // move this upward maybe
+  // isINCheck
 
   private unmarkingPreviouslySelectedAndSafeSquares(): void{
     this.selectedSquare = { piece: null };
     this.pieceSafeSquares = [];
   }
   
-// public or private this??
   private selectingPiece(x: number, y: number): void {
     const piece: FENChar | null = this.chessBoardView[x][y];
     if (!piece) return;

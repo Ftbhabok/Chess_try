@@ -52,13 +52,13 @@ export type LastMove = {
     
 }
 type KingChecked = {
-    isINCheck :true;
+    isInCheck :true;
     x: number;
     y: number;
 }
 
 type KingNotChecked = {
-    isINCheck :false;
+    isInCheck :false;
 }
 
 export type CheckState = KingChecked | KingNotChecked;
