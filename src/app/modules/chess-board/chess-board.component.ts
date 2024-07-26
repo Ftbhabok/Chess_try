@@ -13,11 +13,21 @@ import {
 } from 'src/app/chess-logic/models';
 import { SelectedSquare } from './models';
 
-@Component({
-  selector: 'app-chess-board',
-  templateUrl: './chess-board.component.html',
-  styleUrls: ['./chess-board.component.css'],
+// @Component({
+//   selector: 'app-chess-board',
+//   templateUrl: './chess-board.component.html',
+//   styleUrls: ['./chess-board.component.css'],
+// })
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+// import { ChessBoardComponent } from './chess-board.component';
+
+@NgModule({
+  // declarations: [ChessBoardComponent],
+  imports: [CommonModule],
+  // exports: [ChessBoardComponent]
 })
+export class ChessBoardModule { }
 
 export class ChessBoardComponent {
   public pieceImagePaths = pieceImagePaths;
